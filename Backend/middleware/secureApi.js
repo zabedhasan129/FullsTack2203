@@ -5,7 +5,7 @@ const secureApi = (req,res,next) => {
         next();
     }
     else{
-        res.send({ error:"Not valid way"})
+        res.send({ error:""})
     }
 
 }
