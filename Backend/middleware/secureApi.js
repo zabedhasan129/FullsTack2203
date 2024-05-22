@@ -1,11 +1,11 @@
 const secureApi = (req,res,next) => {
-    console.log(req.headers.authorization);
+    console.log(process.env.SECUREAPI);
 
-    if(req.headers.authorization == "hasan al zabed"){
+    if(req.headers.authorization == process.env.SECUREAPI){
         next();
     }
     else{
-        res.send({ error:""})
+        res.send({ error:"Not Valid Way"})
     }
 
 }
