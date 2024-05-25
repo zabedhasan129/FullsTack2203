@@ -3,9 +3,11 @@ const express = require("express");
 var cors = require('cors');
 const secureApi = require("./middleware/secureapi");
 const app = express();
-const routes = require("./routes")
+const routes = require("./routes");
+const mognodbConfig = require('./mogodbConfig/mongodbConfig');
 
 
+mognodbConfig();
 app.use(cors())
 app.use(express.json());
 app.use(routes)
