@@ -5,4 +5,4 @@ const _= express.Router();
 
 _.post("/registration", registrationController)
 
-module.exports = _;
+module.exports = _ ;
