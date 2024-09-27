@@ -2,9 +2,10 @@ const blankInput = require("../helpers/blankInput");
 const emailValidator = require("../helpers/emailvalidator");
 const Passwordvalidator = require("../helpers/passwordvalidator");
 let User = require("../model/userModel")
+const bcrypt = require('bcrypt');
 let registrationController = async (req, res) => {
     const { username, email, password } = req.body;
-    console.log(username, email, password);
+    console.log("hello",req.body);
 
     if (blankInput(username)) {
         res.send({ error: "Urername requires" })
@@ -25,29 +26,29 @@ let registrationController = async (req, res) => {
 
         console.log(existingEmail)
 
-        if(existingEmail.length > 0){
-            res.send({error:`${email} Already exixst`})
+        if (existingEmail.length > 0) {
+            res.send({ error: `${email}   Already exixst` })
         }
-        else{
-            let user = new User({
-                username: username,
-                email: email,
-                password: password,
-            })
-            user.save();
-            res.send(user);
+        else {
+            bcrypt.hash(password, 5, function (err, hash) {
+                // Store hash in your password DB.
+                console.log(hash)
+
+                let user = new User({
+                    username: username,
+                    email: email,
+                    password: hash,
+                })
+                user.save();
+                res.send({
+                    username: user.username,
+                    email: user.email,
+                    role: user.role,
+                });
+            });
+
         }
-
-
-
-
-
-
-
-
-
-        
     }
 
-}
+};
 module.exports = registrationController;

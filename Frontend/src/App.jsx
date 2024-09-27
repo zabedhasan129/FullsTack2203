@@ -4,15 +4,15 @@ import axios from 'axios'
 import Password from 'antd/es/input/Password';
 function App() {
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log('Success:', values);
 
-    axios.post("http://localhost:8000/api/v1/auth/registration",
+    let data = await axios.post("http://localhost:8000/api/v1/auth/registration",
       {
         email: values.email,
-        name: values.username,
+        username: values.username,
         Password: values.Password,
-        remember: values.remember
+      
       },
       {
         headers:
@@ -20,6 +20,7 @@ function App() {
           authorization: "hasan al zabed"
         }
       });
+      console.log(data)
   };
 
 
